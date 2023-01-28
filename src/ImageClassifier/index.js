@@ -102,7 +102,8 @@ class ImageClassifier {
       if (this.mapStringToIndex.length === 0) {
         const split = path.split("/");
         const prefix = split.slice(0, split.length - 1).join("/");
-        const metadataUrl = `${prefix}/metadata.json`;
+        const suffix = split[split.length - 1].split("?")[1];
+        const metadataUrl = `${prefix}/metadata.json${suffix ? `?${suffix}` : ""}`;
 
         const metadataResponse = await axios.get(metadataUrl).catch((metadataError) => {
           console.log("Tried to fetch metadata.json, but it seems to be missing.", metadataError);
